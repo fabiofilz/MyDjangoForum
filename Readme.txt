@@ -1,1 +1,1 @@
-Forum developed using Django and SQLite
+Forum developed using Django and SQLite.
