@@ -4,9 +4,10 @@ from django.urls import reverse
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.urls import resolve
-from ..views import home, board_topics, new_topic
+from ..views import home, board_topics, new_topic, TopicListView
 from ..models import Board, Topic, Post
 from ..forms import NewTopicForm
+
 
 class BoardTopicsTests(TestCase):
     def setUp(self):
@@ -22,9 +23,13 @@ class BoardTopicsTests(TestCase):
         response = self.client.get(url)
         self.assertEquals(response.status_code, 404)
 
+    # def test_board_topics_url_resolves_board_topics_view(self):
+    #     view = resolve('/boards/1/')
+    #     self.assertEquals(view.func, board_topics)  -- FBV
+
     def test_board_topics_url_resolves_board_topics_view(self):
         view = resolve('/boards/1/')
-        self.assertEquals(view.func, board_topics)
+        self.assertEquals(view.func.view_class, TopicListView)
 
     def test_board_topics_view_contains_link_back_to_homepage(self):
         board_topics_url = reverse('board_topics', kwargs={'pk': 1})
