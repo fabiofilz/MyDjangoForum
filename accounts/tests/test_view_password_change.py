@@ -1,16 +1,15 @@
+from django.contrib.auth import views as auth_views
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
-from django.contrib.auth import views as auth_views
-from django.urls import resolve, reverse
-from django.urls import resolve
 from django.test import TestCase
+from django.urls import resolve, reverse
 
 
 class PasswordChangeTests(TestCase):
     def setUp(self):
         username = 'john'
         password = 'secret123'
-        user = User.objects.create_user(username=username, email='john@doe.com', password=password)
+        User.objects.create_user(username=username, email='john@doe.com', password=password)
         url = reverse('password_change')
         self.client.login(username=username, password=password)
         self.response = self.client.get(url)

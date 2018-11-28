@@ -1,6 +1,13 @@
 from django.contrib.auth import login as auth_login
-from django.shortcuts import render, redirect
-from .forms import SignUpForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.generic import UpdateView
+
+from .forms import SignUpForm, UserInformationUpdateForm
+
 
 def signup(request):
     if request.method == 'POST':
@@ -14,17 +21,9 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 
-
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
-from django.views.generic import UpdateView
-
 @method_decorator(login_required, name='dispatch')
 class UserUpdateView(UpdateView):
-    model = User
-    fields = ('first_name', 'last_name', 'email', )
+    form_class = UserInformationUpdateForm
     template_name = 'my_account.html'
     success_url = reverse_lazy('my_account')
 
