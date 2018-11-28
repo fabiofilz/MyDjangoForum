@@ -3,23 +3,10 @@
 from django.urls import reverse
 from django.test import TestCase
 from django.contrib.auth.models import User
-from ..views import home, board_topics, new_topic
+from ..views import new_topic
 from ..models import Board, Topic, Post
 from django.urls import resolve
 from ..views import BoardListView
-
-
-
-# class HomeTests(TestCase):
-#     def test_home_view_status_code(self):
-#         url = reverse('home')
-#         response = self.client.get(url)
-#         self.assertEquals(response.status_code, 200)
-#
-#
-#     def test_home_url_resolves_home_view(self):
-#         view = resolve('/')
-#         self.assertEquals(view.func, home)
 
 class HomeTests(TestCase):
     def setUp(self):
